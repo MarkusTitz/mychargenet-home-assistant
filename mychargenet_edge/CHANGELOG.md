@@ -1,5 +1,10 @@
 # Änderungsprotokoll
 
+## 0.2.5-pilot
+
+- Das offizielle blaue mychargenet-App-Icon wird jetzt auch im
+  Home-Assistant-App-Store und in der App-Detailansicht verwendet.
+
 ## 0.2.4-pilot
 
 - Ein älterer, unveränderter Phasenwert macht die frische Haus- oder
