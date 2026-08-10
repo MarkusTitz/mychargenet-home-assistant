@@ -1,10 +1,10 @@
 {
   "name": "mychargenet Edge",
-  "version": "0.2.5-pilot",
+  "version": "0.2.6",
   "slug": "mychargenet_edge",
   "description": "Verbindet ausgewählte Home-Assistant-Leistungssensoren sicher und nur lesend mit mychargenet.",
   "url": "https://mychargenet.com",
-  "stage": "experimental",
+  "stage": "stable",
   "startup": "application",
   "boot": "auto",
   "init": false,

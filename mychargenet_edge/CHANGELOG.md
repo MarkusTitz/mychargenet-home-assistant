@@ -1,5 +1,10 @@
 # Änderungsprotokoll
 
+## 0.2.6
+
+- Die App wird nach dem erfolgreichen Pilotbetrieb als stabil geführt.
+- Das mychargenet-Icon besitzt transparente Ecken ohne weißen Rand.
+
 ## 0.2.5-pilot
 
 - Das offizielle blaue mychargenet-App-Icon wird jetzt auch im
