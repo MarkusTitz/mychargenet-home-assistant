@@ -125,7 +125,12 @@ async def collect_measurement(settings, now: datetime | None = None) -> tuple[di
                 state = response.json()
                 sampled_at = state_timestamp(state)
                 age_seconds = (observed_at - sampled_at).total_seconds()
-                if age_seconds < -5 or age_seconds > settings.ha_max_entity_age_seconds:
+                max_age_seconds = (
+                    settings.ha_phase_max_entity_age_seconds
+                    if field.startswith("phase_")
+                    else settings.ha_max_entity_age_seconds
+                )
+                if age_seconds < -5 or age_seconds > max_age_seconds:
                     raise ValueError("stale_home_assistant_state")
                 values[field] = electrical_value(field, state)
                 timestamps.append(sampled_at)

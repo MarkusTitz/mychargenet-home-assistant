@@ -31,6 +31,13 @@ Die Felder `phase_l1_entity` bis `phase_l3_entity` stehen fuer Leistung,
 `phase_l1_current_entity` bis `phase_l3_current_entity` fuer Strom. Nicht
 vorhandene Phasenfelder duerfen leer bleiben.
 
+Der zentrale Haus- oder Netzmesswert muss weiterhin innerhalb von 120 Sekunden
+aktualisiert sein. Home Assistant aktualisiert den Zeitstempel eines
+Phasenwerts jedoch teilweise erst, wenn sich dessen Zahlenwert ändert. Deshalb
+dürfen unveränderte Phasenwerte standardmäßig bis zu 30 Minuten gehalten
+werden, solange die zentrale Messung aktuell bleibt. Das lockert nicht die
+Aktualitätsprüfung der primären Regelgröße.
+
 ## Sicherheitsgrenze
 
 Diese Pilotversion ist nur zur beobachteten Messwertprüfung vorgesehen. Eine

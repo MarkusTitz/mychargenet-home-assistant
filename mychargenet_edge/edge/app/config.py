@@ -57,6 +57,7 @@ class Settings(BaseSettings):
     ha_phase_l2_current_entity: str = ""
     ha_phase_l3_current_entity: str = ""
     ha_max_entity_age_seconds: int = 120
+    ha_phase_max_entity_age_seconds: int = 1800
 
     model_config = SettingsConfigDict(
         env_prefix="EDGE_",
@@ -82,6 +83,10 @@ def get_settings() -> Settings:
     settings.max_backoff_seconds = max(30, min(settings.max_backoff_seconds, 3600))
     settings.queue_retention_days = max(1, min(settings.queue_retention_days, 30))
     settings.ha_max_entity_age_seconds = max(10, min(settings.ha_max_entity_age_seconds, 300))
+    settings.ha_phase_max_entity_age_seconds = max(
+        120,
+        min(settings.ha_phase_max_entity_age_seconds, 7200),
+    )
     if settings.enable_home_assistant:
         ha_url = urlparse(settings.home_assistant_url)
         if ha_url.scheme not in {"http", "https"}:

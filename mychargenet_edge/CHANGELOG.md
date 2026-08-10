@@ -1,5 +1,13 @@
 # Änderungsprotokoll
 
+## 0.2.3-pilot
+
+- Unveränderte Phasenwerte bleiben bis zu 30 Minuten nutzbar, wenn Home
+  Assistant ihren Zeitstempel nicht erneuert.
+- Der zentrale Haus- oder Netzmesswert bleibt weiterhin auf maximal 120
+  Sekunden begrenzt.
+- Die getrennte Frist ist in den App-Einstellungen konfigurierbar.
+
 ## 0.2.2-pilot
 
 - Öffentlicher Home-Assistant-Installations- und Updatekanal.

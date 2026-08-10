@@ -40,7 +40,7 @@ def configure_environment(options: dict) -> None:
             "https://api.mychargenet.com",
         ),
         "EDGE_PAIRING_CODE": str(options.get("pairing_code") or ""),
-        "EDGE_FIRMWARE_VERSION": "0.6.1-ha-pilot",
+        "EDGE_FIRMWARE_VERSION": "0.6.2-ha-pilot",
         "EDGE_HARDWARE_PROFILE": "home_assistant",
         "EDGE_STATE_DIR": str(STATE_DIR),
         "EDGE_HEARTBEAT_INTERVAL_SECONDS": "30",
@@ -53,6 +53,9 @@ def configure_environment(options: dict) -> None:
         "EDGE_HOME_ASSISTANT_URL": "http://supervisor/core/api",
         "EDGE_HOME_ASSISTANT_TOKEN": supervisor_token,
         "EDGE_HA_MAX_ENTITY_AGE_SECONDS": str(options.get("max_entity_age_seconds") or 120),
+        "EDGE_HA_PHASE_MAX_ENTITY_AGE_SECONDS": str(
+            options.get("phase_max_entity_age_seconds") or 1800
+        ),
     })
     for option_name, environment_name in ENTITY_OPTIONS.items():
         os.environ[environment_name] = str(options.get(option_name) or "")

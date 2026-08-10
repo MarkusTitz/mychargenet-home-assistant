@@ -1,6 +1,6 @@
 {
   "name": "mychargenet Edge",
-  "version": "0.2.2-pilot",
+  "version": "0.2.3-pilot",
   "slug": "mychargenet_edge",
   "description": "Verbindet ausgewählte Home-Assistant-Leistungssensoren sicher und nur lesend mit mychargenet.",
   "url": "https://mychargenet.com",
@@ -14,6 +14,7 @@
     "pairing_code": "",
     "poll_interval_seconds": 10,
     "max_entity_age_seconds": 120,
+    "phase_max_entity_age_seconds": 1800,
     "grid_power_entity": "",
     "building_power_entity": "",
     "pv_power_entity": "",
@@ -33,6 +34,7 @@
     "pairing_code": "password",
     "poll_interval_seconds": "int(2,3600)",
     "max_entity_age_seconds": "int(10,300)",
+    "phase_max_entity_age_seconds": "int(120,7200)",
     "grid_power_entity": "str",
     "building_power_entity": "str",
     "pv_power_entity": "str",
