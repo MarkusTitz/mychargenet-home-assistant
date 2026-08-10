@@ -1,5 +1,12 @@
 # Änderungsprotokoll
 
+## 0.2.4-pilot
+
+- Ein älterer, unveränderter Phasenwert macht die frische Haus- oder
+  Netzmessung nicht mehr künstlich veraltet.
+- Die Aktualität des Datensatzes richtet sich nach der primären Messgröße;
+  Phasenwerte bleiben klar getrennte Zusatzdaten.
+
 ## 0.2.3-pilot
 
 - Unveränderte Phasenwerte bleiben bis zu 30 Minuten nutzbar, wenn Home

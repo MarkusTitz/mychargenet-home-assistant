@@ -40,7 +40,7 @@ def configure_environment(options: dict) -> None:
             "https://api.mychargenet.com",
         ),
         "EDGE_PAIRING_CODE": str(options.get("pairing_code") or ""),
-        "EDGE_FIRMWARE_VERSION": "0.6.2-ha-pilot",
+        "EDGE_FIRMWARE_VERSION": "0.6.3-ha-pilot",
         "EDGE_HARDWARE_PROFILE": "home_assistant",
         "EDGE_STATE_DIR": str(STATE_DIR),
         "EDGE_HEARTBEAT_INTERVAL_SECONDS": "30",

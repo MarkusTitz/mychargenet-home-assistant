@@ -112,6 +112,7 @@ async def collect_measurement(settings, now: datetime | None = None) -> tuple[di
     observed_at = now or datetime.now(UTC)
     values = {}
     timestamps = []
+    primary_timestamps = []
     skipped = 0
     last_error = None
     headers = {"Authorization": f"Bearer {settings.home_assistant_token}"}
@@ -134,6 +135,8 @@ async def collect_measurement(settings, now: datetime | None = None) -> tuple[di
                     raise ValueError("stale_home_assistant_state")
                 values[field] = electrical_value(field, state)
                 timestamps.append(sampled_at)
+                if not field.startswith("phase_"):
+                    primary_timestamps.append(sampled_at)
             except (httpx.HTTPError, ValueError, TypeError) as exc:
                 skipped += 1
                 last_error = exc
@@ -144,7 +147,7 @@ async def collect_measurement(settings, now: datetime | None = None) -> tuple[di
     return {
         "sample_kind": "live",
         "config_revision": configuration_revision(entity_map),
-        "sampled_at": min(timestamps).isoformat(),
+        "sampled_at": min(primary_timestamps or timestamps).isoformat(),
         **values,
     }, skipped
 
