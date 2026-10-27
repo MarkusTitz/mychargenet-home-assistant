@@ -1,5 +1,11 @@
 # Änderungsprotokoll
 
+## 0.4.0
+
+- Überträgt Feldqualität und HA-Sensorzuordnung für die getrennte Zählerquellenfreigabe im Portal.
+- Regelfelder benötigen sensor.*; ungültige Zuordnungen stoppen den HA-Messwertversand mit einem verständlichen Hinweis.
+- Updates behalten die Geräteidentität. Sensorbestätigung, Zählerfreigabe und Automatik bleiben eigene Schritte im Portal.
+
 ## 0.2.6
 
 - Die App wird nach dem erfolgreichen Pilotbetrieb als stabil geführt.

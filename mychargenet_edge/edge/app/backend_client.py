@@ -42,6 +42,14 @@ async def send_measurement(settings: Settings, credential: str, site_id: int, pa
         return response.json()
 
 
+async def fetch_protocol(settings: Settings, credential: str) -> dict:
+    url = f"{settings.backend_url.rstrip('/')}/api/edge/protocol"
+    async with httpx.AsyncClient(timeout=10) as client:
+        response = await client.get(url, headers=_headers(credential))
+        response.raise_for_status()
+        return response.json()
+
+
 async def fetch_config(settings: Settings, credential: str, site_id: int) -> dict:
     url = f"{settings.backend_url.rstrip('/')}/api/edge/sites/{site_id}/config"
     headers = _headers(credential)

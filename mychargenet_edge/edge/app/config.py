@@ -39,6 +39,9 @@ class Settings(BaseSettings):
     poll_interval_seconds: int = 10
     enable_simulator: bool = False
     enable_modbus: bool = False
+    # EDGE-LOKAL1: lokale, ausdrueckliche Zuordnung der seriellen Geraetedatei fuer Modbus RTU (z. B. /dev/ttyS1).
+    # Wird nie aus der Cloud gesetzt; leer = kein serieller Betrieb.
+    modbus_serial_device: str = ""
     enable_home_assistant: bool = False
     home_assistant_url: str = "http://supervisor/core/api"
     home_assistant_token: str = ""

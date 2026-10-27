@@ -39,24 +39,36 @@ def _safe_error(exc: Exception) -> str:
 async def ensure_identity(settings, store: IdentityStore) -> dict:
     identity = store.load()
     if identity:
+        store.clear_pending_pairing()
         return identity
     if not settings.pairing_code:
         raise RuntimeError("EDGE_PAIRING_CODE is required for first-time pairing")
-    result = await pair(settings, {
-        "pairing_code": settings.pairing_code,
-        "device_instance_id": store.device_instance_id(),
-        "agent_version": settings.firmware_version,
-        "capabilities": _capabilities(settings),
-    })
+    # Schluessel vor dem Versuch dauerhaft speichern: Antwortverlust, Speicherfehler oder doppelte Anfragen sind damit
+    # harmlos - jede Wiederholung desselben Versuchs ist serverseitig idempotent.
+    pending = store.pending_pairing(settings.pairing_code)
+    try:
+        result = await pair(settings, {
+            "pairing_code": settings.pairing_code,
+            "device_instance_id": store.device_instance_id(),
+            "agent_version": settings.firmware_version,
+            "capabilities": _capabilities(settings),
+            "device_credential": pending["device_credential"],
+        })
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code == 422:
+            store.discard_pending_pairing()  # formal abgelehnt: kein endloses Wiederholen desselben Schluessels
+        raise
     identity = {
         "device_instance_id": store.device_instance_id(),
         "edge_uid": result["edge_uid"],
         "site_id": result["site_id"],
-        "device_credential": result["device_credential"],
+        # Aelterer Server ignoriert den Geraeteschluessel und liefert einen eigenen - dann gilt dieser.
+        "device_credential": result.get("device_credential") or pending["device_credential"],
         "credential_expires_at": result["credential_expires_at"],
         "config_version": result["config_version"],
     }
     store.save(identity)
+    store.clear_pending_pairing()  # erst nach gespeicherter Identitaet; Fehler blockieren nie
     return identity
 
 
