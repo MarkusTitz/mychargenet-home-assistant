@@ -7,7 +7,7 @@ from app.backend_client import send_measurement
 from app.config import get_settings
 from app.connector import RUNTIME_STATE, connector_loop
 from app.identity_store import IdentityStore
-from app.home_assistant_worker import HEALTH_STATE as HOME_ASSISTANT_STATE, worker_loop as home_assistant_worker_loop
+from app.home_assistant_worker import HEALTH_STATE as HOME_ASSISTANT_STATE, measurement_protocol_status, worker_loop as home_assistant_worker_loop
 from app.modbus_worker import HEALTH_STATE as MODBUS_STATE, worker_loop
 from app.mqtt_client import mqtt_configured
 from app.queue_store import QueueStore
@@ -74,6 +74,11 @@ async def health():
             "home_assistant_status": HOME_ASSISTANT_STATE["status"],
             "home_assistant_last_success_at": HOME_ASSISTANT_STATE["last_success_at"],
             "home_assistant_last_error": HOME_ASSISTANT_STATE["last_error"],
+            "home_assistant_last_error_origin": HOME_ASSISTANT_STATE["last_error_origin"],
+            # B1: Messprotokoll der Cloud (confirmed/unsupported/unknown) - Installer prueft es bei aktivem HA-Pfad.
+            "measurement_protocol": measurement_protocol_status(),
+            "home_assistant_confirmed_unchanged_entities": HOME_ASSISTANT_STATE["confirmed_unchanged_entities"],
+            "home_assistant_diagnostic_aged_entities": HOME_ASSISTANT_STATE["diagnostic_aged_entities"],
             "home_assistant_entities": HOME_ASSISTANT_STATE["configured_entities"],
         },
     }
